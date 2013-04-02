@@ -32,14 +32,13 @@
 	}
 	
 	$i =0;
-	foreach($tracks as $track){
+	for($i =0; $i< count($tracks); ++$i){
 		//$content = file_get_contents('https://gdata.youtube.com/feeds/api/videos?alt=json&q='.urlencode($track));
-		$content = getStuff('https://gdata.youtube.com/feeds/api/videos?alt=json&q='.urlencode($track['track_name']));
+		$content = getStuff('https://gdata.youtube.com/feeds/api/videos?alt=json&q='.urlencode($tracks[$i]['track_name']));
 		$content = json_decode($content, true);
 		$tracks[$i]['title'] = $content['feed']['entry'][0]['title']['$t'];
 		$tracks[$i]['link'] = $content['feed']['entry'][0]['link'][0]['href'];
 		$tracks[$i]['link'] = substr($tracks[$i]['link'], 32, 11);
-		++$i;
 	}
 
 	for($i = 0; $i < count($tracks); ++$i){
